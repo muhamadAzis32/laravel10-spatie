@@ -36,13 +36,16 @@
                 <td class="text-center">
                     <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('roles.destroy', $role->id) }}"
                         method="POST">
-
                         <a href="{{ route('roles.show', $role->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                        @can('role-edit')
+                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                        @endcan
 
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                        @can('role-delete')
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                        @endcan
                     </form>
                 </td>
             </tr>
