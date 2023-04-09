@@ -33,16 +33,17 @@
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $role->name }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Show</a>
-                    @can('role-edit')
-                        <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}">Edit</a>
-                    @endcan
-                    @can('role-delete')
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                        {!! Form::close() !!}
-                    @endcan
+                <td class="text-center">
+                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('roles.destroy', $role->id) }}"
+                        method="POST">
+
+                        <a href="{{ route('roles.show', $role->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
