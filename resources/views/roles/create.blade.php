@@ -24,32 +24,34 @@
         </div>
     @endif
 
+    <form action="{{ route('roles.store') }}" method="POST">
+        @csrf
 
-    {!! Form::open(['route' => 'roles.store', 'method' => 'POST']) !!}
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    <input type="text" name="name" class="form-control" placeholder="Name">
+                </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Permission:</strong>
-                <br />
-                @foreach ($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
-                        {{ $value->name }}</label>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Permission:</strong>
                     <br />
-                @endforeach
+                    @foreach ($permission as $permission)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="" name="permission[]"
+                                value="{{ $permission->id }}">
+                            <label class="form-check-label" for="">{{ $permission->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-    {!! Form::close() !!}
 
+    </form>
 
-    <p class="text-center text-primary"><small>Tutorial by Medikre.com</small></p>
 @endsection
