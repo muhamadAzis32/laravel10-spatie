@@ -12,13 +12,13 @@ class ProductController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index', 'show']]);
-    //     $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
-    //     $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
-    //     $this->middleware('permission:product-delete', ['only' => ['destroy']]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+    }
 
     /**
      * Display a listing of the resource.
@@ -60,6 +60,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+        $product = Product::findOrFail($id);
+        
         return view('products.show', compact('product'));
     }
 
@@ -68,6 +70,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $product = Product::findOrFail($id);
         return view('products.edit', compact('product'));
     }
 

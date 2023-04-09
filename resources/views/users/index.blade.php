@@ -34,9 +34,9 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
-                    @if (!empty($user->getRoleNames()))
-                        @foreach ($user->getRoleNames() as $v)
-                            <label class="badge badge-success">{{ $v }}</label>
+                    @if ($user->getRoleNames()->count() > 0)
+                        @foreach ($user->getRoleNames() as $role)
+                            {{ $role }}
                         @endforeach
                     @endif
                 </td>
