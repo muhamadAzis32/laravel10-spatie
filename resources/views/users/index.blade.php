@@ -40,18 +40,21 @@
                         @endforeach
                     @endif
                 </td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('users.show', $user->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Edit</a>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' => 'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
+                <td class="text-center">
+                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('users.destroy', $user->id) }}"
+                        method="POST">
+
+                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
     </table>
 
     {!! $data->render() !!}
-
-    <p class="text-center text-primary"><small>Tutorial by Medikre.com</small></p>
 @endsection
